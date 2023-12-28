@@ -3,6 +3,14 @@
 
 Create Infoboxes in a simple way. (Refactoring with React)
 
+# 展示地址 / Demo
+
+请使用电脑打开
+
+Plz use your PC rather than mobile phones
+
+[Github Pages](https://heuluck.github.io/Create-infoboxes-in-Mediawiki-Remake/)
+
 # 原项目 / The Original Project
 
 [Create-infoboxes-in-Mediawiki](https://github.com/Heuluck/Create-infoboxes-in-Mediawiki)
