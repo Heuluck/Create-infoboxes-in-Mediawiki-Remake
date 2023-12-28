@@ -39,24 +39,26 @@ export default function InputArea(prop) {
     }
 
     function contentSubmitHandler(content) {
-        prop.setContent(current => [...current,
+        setCount(current => current + 1)
+        prop.setContent(current => [...current,{"id":count,"theContent":
         `\n|-
 {{#if: {{{${content}|}}} |
 {{!}}  class="left" {{!}} ${content}
-{{!}}  class="right" {{!}} {{{${content}|}}}}}`])
+{{!}}  class="right" {{!}} {{{${content}|}}}}}`}])
 
-        prop.setContentRef(current => [...current,
-        `\n|${content} =`])
+        prop.setContentRef(current => [...current,{"id":count,"theContent":
+        `\n|${content} =`}])
 
-        prop.setPreviewContent(current => [...current, <tr>
+        prop.setPreviewContent(current => [...current, {"id":count,"content":<tr>
             <td className="left">{content}
             </td>
             <td className="right">数据将显示于此
             </td>
-        </tr>])
+        </tr>}])
+
+        prop.setPureContent(current=>[...current,{"id":count,"content":content}])
         inputSingle()
         setPercent(current => current < 90 ? current + 2 : current)
-        setCount(current => current + 1)
         setComfirmVisibility(true)
     }
 

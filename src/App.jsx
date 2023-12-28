@@ -22,6 +22,7 @@ function Index() {
   const [content, setContent] = useState([])
   const [contentRef, setContentRef] = useState([])
   const [previewContent, setPreviewContent] = useState([])
+  let [pureContent, setPureContent] = useState([])
   const [titleColor, setTitleColor] = useState('#3366CC')
   const [showCode, setShow] = useState(false)
   function getWindowSize() {
@@ -29,6 +30,17 @@ function Index() {
     return { innerWidth, innerHeight };
   }
   const [windowSize, setWindowSize] = useState(getWindowSize());
+
+  const deleteItem = (index) => {
+    let middle = [];
+    // setContent(current=>current.splice(index,1))
+    // setContentRef(current=>current.splice(index,1))
+    // setPreviewContent(current=>current.splice(index,1))
+    setPureContent(current=>current.filter(a =>
+      a.id !== index
+    ))
+      
+  }
 
   useEffect(() => {
     function handleWindowResize() {
@@ -41,16 +53,20 @@ function Index() {
   }, []);
   return (
     <Layout style={{ minHeight: '100vh' }}>
-      <Sider width={"400px"} collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)} breakpoint="lg"
+      <Sider width={"360px"} collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)} breakpoint="lg"
         collapsedWidth="0"
         onBreakpoint={(broken) => {
           console.log(broken);
         }}>
-        <InputArea setTitle={setTitle} setContent={setContent} setContentRef={setContentRef} setShowCode={setShow} setPreviewContent={setPreviewContent} setTitleColor={setTitleColor} />
+        <InputArea pureContent={pureContent} setTitle={setTitle} setContent={setContent} setContentRef={setContentRef} setShowCode={setShow} setPreviewContent={setPreviewContent} setTitleColor={setTitleColor} setPureContent={setPureContent} />
       </Sider>
       <Layout>
         <Content style={{ overflowY: "scroll", height: windowSize.innerHeight, flex: "none" }}>
-          <OutputArea title={title} content={content} contentRef={contentRef} showCode={showCode} previewContent={previewContent} titleColor={titleColor} />
+          <OutputArea title={title} content={content}
+            contentRef={contentRef} showCode={showCode}
+            previewContent={previewContent} titleColor={titleColor}
+            pureContent={pureContent} setPureContent={setPureContent}
+            deleteItem={deleteItem} />
         </Content>
       </Layout>
     </Layout>
