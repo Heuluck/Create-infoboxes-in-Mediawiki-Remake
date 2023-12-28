@@ -2,7 +2,7 @@
   "name": "create-infoboxes-in-mediawiki",
   "private": true,
   "version": "0.0.0",
-  "homepage": "./",
+  "homepage": "/",
   "type": "module",
   "scripts": {
     "dev": "vite",
