@@ -4,7 +4,19 @@ import './App.css'
 const { Header, Content, Footer, Sider } = Layout;
 import InputArea from './components/Left/InputArea';
 import OutputArea from './components/Content/OutputArea';
+import { Routes, Route, useNavigate } from "react-router-dom"
 function App() {
+
+  return (
+    <>
+      <Routes>
+        <Route path="/" element={<Index />}></Route>
+      </Routes>
+    </>
+  )
+}
+
+function Index(){
   const [count, setCount] = useState(0)
   const [title, setTitle] = useState('待输入')
   const [content, setContent] = useState([])
@@ -24,9 +36,8 @@ function App() {
       window.removeEventListener('resize', handleWindowResize);
     };
   }, []);
-  return (
-    <>
-      <Layout style={{ minHeight: '100vh' }}>
+  return(
+    <Layout style={{ minHeight: '100vh' }}>
         <Sider width={"22%"} >
           <InputArea setTitle={setTitle} setContent={setContent} setContentRef={setContentRef} />
         </Sider>
@@ -36,7 +47,6 @@ function App() {
           </Content>
         </Layout>
       </Layout>
-    </>
   )
 }
 
