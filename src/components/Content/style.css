@@ -1,1 +1,33 @@
-    
+.wikiTable{
+    width: 25em;
+    color: #72777D;
+    font-size: 90%;
+    border: 1px solid #aaaaaa;
+    margin-bottom: 0.5em;
+    margin-left: 1em;
+    padding: 0.2em;
+    float: inline-start;
+    clear: right;
+    text-align: right;
+    background-color: #f8f9fa;
+    color: #202122;
+    margin: 1em 0;
+    border: 1px solid #a2a9b1;
+    border-collapse: collapse;
+}    
+
+.wikiTable > tr > th, .wikiTable > tr > td, .wikiTable > * > tr > th, .wikiTable > * > tr > td {
+    border: 1px solid #a2a9b1;
+    padding: 0.2em 0.4em;
+}
+
+div.thumbinner {
+    /* border: 1px solid #c8ccd1; */
+    background-color: #f8f9fa;
+    font-size: 94%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 3px;
+    text-align: center;
+    overflow: hidden;
+}

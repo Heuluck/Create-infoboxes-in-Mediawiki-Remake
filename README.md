@@ -9,8 +9,9 @@ Create Infoboxes in a simple way. (Refactoring with React)
 
 # 计划 / To-Dos
 
-- [ ] 支持新版 Infobox / Support new version of Infobox
 - [x] 美化界面 / Beautify the interface
+- [x] 支持预览信息栏 / Preview the Infobox
+- [ ] 支持新版 Infobox / Support new version of Infobox
 - [ ] 支持自定义颜色 / Support custom colors
 - [ ] 多语言支持 / Multi-language support
 - [ ] 支持更多参数 / Support more parameters

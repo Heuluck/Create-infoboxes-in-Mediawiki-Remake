@@ -18,10 +18,12 @@ function App() {
 
 function Index(){
   const [count, setCount] = useState(0)
-  const [title, setTitle] = useState('待输入')
+  const [title, setTitle] = useState('标题待输入')
   const [content, setContent] = useState([])
   const [contentRef, setContentRef] = useState([])
-  function getWindowSize() {
+    const [showCode,setShow] = useState(false)
+    const [previewContent,setPreviewContent] = useState([])
+    function getWindowSize() {
     const {innerWidth, innerHeight} = window;
     return {innerWidth, innerHeight};
   }
@@ -38,12 +40,12 @@ function Index(){
   }, []);
   return(
     <Layout style={{ minHeight: '100vh' }}>
-        <Sider width={"22%"} >
-          <InputArea setTitle={setTitle} setContent={setContent} setContentRef={setContentRef} />
+        <Sider width={"22%"} style={{overflowY:"scroll",height:windowSize.innerHeight}} >
+          <InputArea setTitle={setTitle} setContent={setContent} setContentRef={setContentRef} setShowCode={setShow} setPreviewContent={setPreviewContent} />
         </Sider>
         <Layout>
           <Content style={{overflowY:"scroll",height:windowSize.innerHeight,flex:"none"}}>
-            <OutputArea title={title} content={content} contentRef={contentRef}/>
+            <OutputArea title={title} content={content} contentRef={contentRef} showCode={showCode} previewContent={previewContent} />
           </Content>
         </Layout>
       </Layout>
