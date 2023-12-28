@@ -2,7 +2,7 @@
   "name": "create-infoboxes-in-mediawiki",
   "private": true,
   "version": "0.0.0",
-  "homepage": "/",
+  "homepage": "https://heuluck.github.io/Create-infoboxes-in-Mediawiki-Remake/",
   "type": "module",
   "scripts": {
     "dev": "vite",
