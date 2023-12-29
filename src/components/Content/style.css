@@ -19,6 +19,7 @@
 .wikiTable > tr > th, .wikiTable > tr > td, .wikiTable > * > tr > th, .wikiTable > * > tr > td {
     border: 1px solid #a2a9b1;
     padding: 0.2em 0.4em;
+    width: 50%;
 }
 
 div.thumbinner {
