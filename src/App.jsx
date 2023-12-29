@@ -1,10 +1,10 @@
 import { useState, useEffect, useRef } from 'react'
 import { Layout } from "antd"
 import './App.css'
-const { Header, Content, Footer, Sider } = Layout;
+const { Content, Sider } = Layout;
 import InputArea from './components/Left/InputArea';
 import OutputArea from './components/Content/OutputArea';
-import { Routes, Route, useNavigate } from "react-router-dom"
+import { Routes, Route} from "react-router-dom"
 function App() {
 
   return (
@@ -72,7 +72,7 @@ function Index() {
           <OutputArea title={title} content={content}
             contentRef={contentRef} showCode={showCode}
             previewContent={previewContent} titleColor={titleColor}
-            pureContent={pureContent} setPureContent={setPureContent}
+            pureContent={pureContent} setPureContent={setPureContent} setPreviewContent={setPreviewContent}
             deleteItem={deleteItem} ref={outPutRef} />
         </Content>
       </Layout>
