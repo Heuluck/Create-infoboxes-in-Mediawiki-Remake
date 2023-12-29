@@ -1,4 +1,4 @@
-import { Space, Input, Button, Progress, Tooltip, ColorPicker } from "antd"
+import { Space, Input, Button, Progress, Tooltip, ColorPicker, Alert } from "antd"
 import { useState } from "react"
 import { useAutoAnimate } from '@formkit/auto-animate/react'
 import React from "react"
@@ -29,6 +29,7 @@ export default function InputArea(prop) {
     const [title, inputTitle] = useState()
     const [singleContent, inputSingle] = useState()
     const [count, setCount] = useState(1)
+    const [showAlert,setShowAlert] = useState(false)
     const [parent, enableAnimations] = useAutoAnimate()
 
     function titleSubmitHandler() {
@@ -39,45 +40,69 @@ export default function InputArea(prop) {
     }
 
     function contentSubmitHandler(content) {
-        prop.setContent(current => [...current,
-        `\n|-
-{{#if: {{{${content}|}}} |
-{{!}}  class="left" {{!}} ${content}
-{{!}}  class="right" {{!}} {{{${content}|}}}}}`])
+        prop.enableTableAnimations(true)
+        setCount(current => current + 1)
+        prop.setPreviewContent(current => [...current, {
+            "id": count, "content": <tr>
+                <td className="left">{content}
+                </td>
+                <td className="right">数据将显示于此
+                </td>
+            </tr>
+        }])
 
-        prop.setContentRef(current => [...current,
-        `\n|${content} =`])
-
-        prop.setPreviewContent(current => [...current, <tr>
-            <td className="left">{content}
-            </td>
-            <td className="right">数据将显示于此
-            </td>
-        </tr>])
+        prop.setPureContent(current => [...current, { "id": count, "content": content }])
         inputSingle()
         setPercent(current => current < 90 ? current + 2 : current)
-        setCount(current => current + 1)
         setComfirmVisibility(true)
+    }
+
+    const onFinishHandler = () => {
+        prop.pureContent.forEach(item=>{
+            const content = item.content
+            prop.setContent(current => [...current,
+            `\n|-
+{{#if: {{{${content}|}}} |
+{{!}}  class="left" {{!}} ${content}
+{{!}}  class="right" {{!}} {{{${content}|}}}}}`
+            ])
+        prop.setContentRef(current => [...current,
+        `\n|${content} =`])
+            console.log(content)
+    })
+        prop.setShowCode(true);
+        setContentVisibility(false);
+        setComfirmVisibility(false);
+        setPercent(100);
+    }
+
+    const preventEmpty=(cont,func)=>{
+        if (cont == null||cont.replace(/[ ]+$/g, "").length == 0)//是否为null/空/空格
+            setShowAlert(true)
+        else{
+            setShowAlert(false)
+            func(cont)
+        }
     }
 
     return (
         <div ref={parent}>
             {contentVisibility && <><Space.Compact style={{ width: '98%', margin: "5px auto", alignItems: "center", justifyContent: "center", padding: "25px" }}><Progress percent={percent} size={["default", 20]} /></Space.Compact>
-                <p style={{ textAlign: "center" }}>在下方填写相关信息</p></>}
+                <p style={{ textAlign: "center" }}>在下方填写相关信息</p>{showAlert?<Space style={{ width: '98%', margin: "5px 0 0 0 ", alignItems: "center", justifyContent: "center", padding: "0" }}><Alert message="内容为必填项" type="warning" showIcon /></Space>:null}</>}
             {titleVisibility && <CenterIt>
                 <Input addonBefore="标题" placeholder="请输入Infobox的标题" style={{ width: "70%" }} allowClear suffix={
                     <Tooltip title="也就是模板页的页面标题">
                         <InfoCircleOutlined style={{ color: 'rgba(0,0,0,.45)' }} />
-                    </Tooltip>} value={title} onChange={(e) => inputTitle(e.target.value)} onPressEnter={() => { titleSubmitHandler() }} />
-                <Button type="primary" onClick={() => { titleSubmitHandler() }}>提交</Button>
+                    </Tooltip>} value={title} onChange={(e) => inputTitle(e.target.value)} onPressEnter={() => { preventEmpty(title,titleSubmitHandler) }} />
+                <Button type="primary" onClick={() => { preventEmpty(title,titleSubmitHandler) }}>提交</Button>
             </CenterIt>}
             {contentVisibility && <><CenterIt>
                 <Input addonBefore={`第${count}条内容`} placeholder={`请输入第${count}条内容`} style={{ width: "70%" }} disabled={contentAvailability} allowClear
-                    value={singleContent} onChange={(e) => inputSingle(e.target.value)} onPressEnter={() => { contentSubmitHandler(singleContent) /*在这里传入防止一些奇怪问题*/ }} />
-                <Button type="primary" onClick={() => { contentSubmitHandler(singleContent) /*在这里传入防止一些奇怪问题*/ }} disabled={contentAvailability}>提交</Button>
+                    value={singleContent} onChange={(e) => inputSingle(e.target.value)} onPressEnter={() => { preventEmpty(singleContent,contentSubmitHandler) /*在这里传入防止一些奇怪问题*/ }} />
+                <Button type="primary" onClick={() => { preventEmpty(singleContent,contentSubmitHandler) /*在这里传入防止一些奇怪问题*/ }} disabled={contentAvailability}>提交</Button>
             </CenterIt>
-                <Center><ColorPicker defaultValue="#3366CC" onChange={(e)=>{prop.setTitleColor(e.toHexString())}} showText={(color) => <span>标题颜色：{color.toHexString()}</span>}  disabled={contentAvailability} /></Center></>}
-            {comfirmVisibility && <Center><Button type="primary" onClick={() => { prop.setShowCode(true); setContentVisibility(false); setComfirmVisibility(false); setPercent(100) }} block>完成</Button></Center>}
+                <Center><ColorPicker defaultValue="#3366CC" onChange={(e) => { prop.setTitleColor(e.toHexString()) }} showText={(color) => <span>标题颜色：{color.toHexString()}</span>} disabled={contentAvailability} /></Center></>}
+            {comfirmVisibility && <Center><Button type="primary" onClick={() => { onFinishHandler() }} block>完成</Button></Center>}
             <CenterIt><Progress type="circle" percent={percent} style={{ backgroundColor: "white", borderRadius: "80px" }} /></CenterIt>
         </div>
     )

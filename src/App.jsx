@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Layout } from "antd"
 import './App.css'
 const { Header, Content, Footer, Sider } = Layout;
@@ -22,13 +22,28 @@ function Index() {
   const [content, setContent] = useState([])
   const [contentRef, setContentRef] = useState([])
   const [previewContent, setPreviewContent] = useState([])
+  let [pureContent, setPureContent] = useState([])
   const [titleColor, setTitleColor] = useState('#3366CC')
   const [showCode, setShow] = useState(false)
+  const outPutRef = useRef(null)
   function getWindowSize() {
     const { innerWidth, innerHeight } = window;
     return { innerWidth, innerHeight };
   }
   const [windowSize, setWindowSize] = useState(getWindowSize());
+
+  const deleteItem = (index) => {
+    enableTableAnimations(false)
+    setPreviewContent(current=>current.filter(a =>
+      a.id !== index
+      ))
+    setPureContent(current=>current.filter(a =>
+      a.id !== index
+    ))
+  }
+  function enableTableAnimations(bool){
+    outPutRef.current.enableTableAnimations(bool)
+  }
 
   useEffect(() => {
     function handleWindowResize() {
@@ -41,16 +56,24 @@ function Index() {
   }, []);
   return (
     <Layout style={{ minHeight: '100vh' }}>
-      <Sider width={"400px"} collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)} breakpoint="lg"
+      <Sider width={"360px"} collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)} breakpoint="lg"
         collapsedWidth="0"
         onBreakpoint={(broken) => {
           console.log(broken);
         }}>
-        <InputArea setTitle={setTitle} setContent={setContent} setContentRef={setContentRef} setShowCode={setShow} setPreviewContent={setPreviewContent} setTitleColor={setTitleColor} />
+        <InputArea pureContent={pureContent} setTitle={setTitle}
+        setContent={setContent} setContentRef={setContentRef}
+        setShowCode={setShow} setPreviewContent={setPreviewContent}
+        setTitleColor={setTitleColor} setPureContent={setPureContent} 
+        enableTableAnimations={enableTableAnimations}/>
       </Sider>
       <Layout>
         <Content style={{ overflowY: "scroll", height: windowSize.innerHeight, flex: "none" }}>
-          <OutputArea title={title} content={content} contentRef={contentRef} showCode={showCode} previewContent={previewContent} titleColor={titleColor} />
+          <OutputArea title={title} content={content}
+            contentRef={contentRef} showCode={showCode}
+            previewContent={previewContent} titleColor={titleColor}
+            pureContent={pureContent} setPureContent={setPureContent}
+            deleteItem={deleteItem} ref={outPutRef} />
         </Content>
       </Layout>
     </Layout>
