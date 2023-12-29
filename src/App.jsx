@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Layout } from "antd"
 import './App.css'
 const { Header, Content, Footer, Sider } = Layout;
@@ -25,6 +25,7 @@ function Index() {
   let [pureContent, setPureContent] = useState([])
   const [titleColor, setTitleColor] = useState('#3366CC')
   const [showCode, setShow] = useState(false)
+  const outPutRef = useRef(null)
   function getWindowSize() {
     const { innerWidth, innerHeight } = window;
     return { innerWidth, innerHeight };
@@ -32,14 +33,16 @@ function Index() {
   const [windowSize, setWindowSize] = useState(getWindowSize());
 
   const deleteItem = (index) => {
-    let middle = [];
-    // setContent(current=>current.splice(index,1))
-    // setContentRef(current=>current.splice(index,1))
-    // setPreviewContent(current=>current.splice(index,1))
+    enableTableAnimations(false)
+    setPreviewContent(current=>current.filter(a =>
+      a.id !== index
+      ))
     setPureContent(current=>current.filter(a =>
       a.id !== index
     ))
-      
+  }
+  function enableTableAnimations(bool){
+    outPutRef.current.enableTableAnimations(bool)
   }
 
   useEffect(() => {
@@ -58,7 +61,11 @@ function Index() {
         onBreakpoint={(broken) => {
           console.log(broken);
         }}>
-        <InputArea pureContent={pureContent} setTitle={setTitle} setContent={setContent} setContentRef={setContentRef} setShowCode={setShow} setPreviewContent={setPreviewContent} setTitleColor={setTitleColor} setPureContent={setPureContent} />
+        <InputArea pureContent={pureContent} setTitle={setTitle}
+        setContent={setContent} setContentRef={setContentRef}
+        setShowCode={setShow} setPreviewContent={setPreviewContent}
+        setTitleColor={setTitleColor} setPureContent={setPureContent} 
+        enableTableAnimations={enableTableAnimations}/>
       </Sider>
       <Layout>
         <Content style={{ overflowY: "scroll", height: windowSize.innerHeight, flex: "none" }}>
@@ -66,7 +73,7 @@ function Index() {
             contentRef={contentRef} showCode={showCode}
             previewContent={previewContent} titleColor={titleColor}
             pureContent={pureContent} setPureContent={setPureContent}
-            deleteItem={deleteItem} />
+            deleteItem={deleteItem} ref={outPutRef} />
         </Content>
       </Layout>
     </Layout>
