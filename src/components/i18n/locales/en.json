@@ -1,0 +1,40 @@
+{
+  "fillInfoBelow": "Fill in the information below",
+  "contentRequired": "This content is required",
+  "title": "Title",
+  "Input": {
+    "PlzInput": "Input the title",
+    "titleTip": "The name of the template page, e.g. \"Infobox character\"",
+    "submit": "Submit",
+    "contentNumberTitle": "Label No.{{count}}",
+    "contentNumberTitlePlaceHolder": "Input the label",
+    "titlebg": "Title bgcolor：",
+    "moreConfig": "More cofigurations",
+    "finish": "Finish!"
+  },
+  "Output": {
+    "Template": {
+      "title": "Template",
+      "copy": "Copy"
+    },
+    "Usage": {
+      "title": "Usage",
+      "titleUndefined": "Error: Title Undefined"
+    },
+    "Preview": {
+      "title": "Preview",
+      "contentShowHere": "Value Edited by user",
+      "defaultTitle": "Title"
+    },
+    "List": {
+      "inputChangeTo": "Please enter the label you want to change to",
+      "inputChange": "Change Label",
+      "cancle": "Cancle",
+      "confirm": "Confirm",
+      "title": "Label list",
+      "header": "List",
+      "change": "Change",
+      "delete": "Delete"
+    }
+  }
+}

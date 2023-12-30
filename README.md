@@ -3,7 +3,7 @@
 
 Create Infoboxes in a simple way. (Refactoring with React)
 
-# 展示地址 / Demo
+# 展示地址 / Github Page
 
 [Github Pages上的 MediaWiki 原生信息栏生成器](https://heuluck.github.io/Create-infoboxes-in-Mediawiki-Remake/)
 
@@ -38,6 +38,32 @@ npm run dev
 8. Paste the content of the "模板引用" on the page where you want to use the infobox, and fill in the details.
 9. Finish!
 
+# Demo
+![中文页面示例](./screenshots/1.zh.png)
+<center>中文页面示例</center>
+<br />
+
+![English](./screenshots/2.en.png)
+<center>English(beta)</center>
+<br />
+
+![修改标签](./screenshots/3.en-changeName.png)
+<center>修改标签 / Change Label</center>
+<br />
+
+![结果](./screenshots/4.en-finish.png)
+<center>结果页 / Result</center>
+<br />
+
+![MW模板页](./screenshots/5.en-mw-template.png)
+<center>Wiki模板页 / Template</center>
+<br />
+
+![实际使用](./screenshots/6.en-mw-test.png)
+<center>实际效果 / Demostration</center>
+<br />
+
+
 # 更新内容 / Update
 - 允许修改标题颜色
 - 左侧栏可折叠
@@ -46,6 +72,9 @@ npm run dev
 - 删除已有内容
 - 修复无图片时不显示默认图片的问题
 - 支持修改已有内容
+- 支持中英文切换
+- 可直接复制
+- 修改文案
 
 # 原项目 / The Original Project
 
@@ -58,6 +87,6 @@ npm run dev
 - [x] 支持删除已有项 / Support for deleting existing items
 - [x] 支持修改已有项 / Support for modifying existing items
 - [x] 支持自定义颜色 / Support custom colors
+- [x] 多语言支持 / Multi-language support
 - [ ] 支持新版 Infobox / Support new version of Infobox
-- [ ] 多语言支持 / Multi-language support
 - [ ] 支持更多参数 / Support more parameters

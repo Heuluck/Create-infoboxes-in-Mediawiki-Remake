@@ -22,11 +22,13 @@ class Center extends React.Component {
 }
 
 export default function InputArea(prop) {
+    const t = prop.t;
+    const i18n = prop.i18n;
     const [percent, setPercent] = useState(0)
     const [titleVisibility, setTitleVisibility] = useState(true)//标题输入是否显示
     const [contentAvailability, setContentAvailability] = useState(true)//内容输入是否【禁用】
     const [contentVisibility, setContentVisibility] = useState(true)//内容输入是否显示
-    const [comfirmVisibility, setComfirmVisibility] = useState(false)//确认是否显示
+    const [confirmVisibility, setConfirmVisibility] = useState(false)//确认是否显示
     const [title, inputTitle] = useState()
     const [singleContent, inputSingle] = useState()
     const [count, setCount] = useState(1)
@@ -49,7 +51,7 @@ export default function InputArea(prop) {
             "id": count, "content": <tr>
                 <td className="left">{content}
                 </td>
-                <td className="right">数据将显示于此
+                <td className="right">{t('Output.Preview.contentShowHere')}
                 </td>
             </tr>
         }])
@@ -57,7 +59,7 @@ export default function InputArea(prop) {
 
         inputSingle()
         setPercent(current => current < 90 ? current + 2 : current)
-        setComfirmVisibility(true)
+        setConfirmVisibility(true)
     }
 
     const onFinishHandler = () => {
@@ -75,7 +77,7 @@ export default function InputArea(prop) {
         })
         prop.setShowCode(true);
         setContentVisibility(false);
-        setComfirmVisibility(false);
+        setConfirmVisibility(false);
         setPercent(100);
     }
 
@@ -95,36 +97,36 @@ export default function InputArea(prop) {
                 <Space.Compact style={{ width: '98%', margin: "5px auto", alignItems: "center", justifyContent: "center", padding: "25px" }}>
                     <Progress percent={percent} size={["default", 20]} />
                 </Space.Compact>
-                <p style={{ textAlign: "center" }}>在下方填写相关信息</p>
+                <p style={{ textAlign: "center" }}>{t("fillInfoBelow")}</p>
                 {/* 警告框 */}
                 {showAlert ? <Space style={{ width: '98%', margin: "5px 0 0 0 ", alignItems: "center", justifyContent: "center", padding: "0" }}>
-                    <Alert message="内容为必填项" type="warning" showIcon />
+                    <Alert message={t("contentRequired")} type="warning" showIcon />
                 </Space> : null}</>}
             {/* 标题输入 */}
             {titleVisibility && <CenterIt>
-                <Input addonBefore="标题" placeholder="请输入Infobox的标题" style={{ width: "70%" }} allowClear suffix={
-                    <Tooltip title="也就是模板页的页面标题">
+                <Input addonBefore={t("title")} placeholder={t("Input.PlzInput")} style={{ width: "70%" }} allowClear suffix={
+                    <Tooltip title={t("Input.titleTip")}>
                         <InfoCircleOutlined style={{ color: 'rgba(0,0,0,.45)' }} />
                     </Tooltip>} value={title} onChange={(e) => inputTitle(e.target.value)} onPressEnter={() => { preventEmpty(title, titleSubmitHandler) }} />
-                <Button type="primary" onClick={() => { preventEmpty(title, titleSubmitHandler) }}>提交</Button>
+                <Button type="primary" onClick={() => { preventEmpty(title, titleSubmitHandler) }}>{t("Input.submit")}</Button>
             </CenterIt>}
             {/* 内容输入 */}
             {contentVisibility && <>
                 <CenterIt>
-                    <Input addonBefore={`第${count}条内容`} placeholder={`请输入第${count}条内容`} style={{ width: "70%" }} disabled={contentAvailability} allowClear
+                    <Input addonBefore={t("Input.contentNumberTitle",{count:count-prop.delItemCount})} placeholder={t("Input.contentNumberTitlePlaceHolder",{count:count-prop.delItemCount})} style={{ width: "70%" }} disabled={contentAvailability} allowClear
                         value={singleContent} onChange={(e) => inputSingle(e.target.value)} onPressEnter={() => { preventEmpty(singleContent, contentSubmitHandler) /*在这里传入防止一些奇怪问题*/ }} />
-                    <Button type="primary" onClick={() => { preventEmpty(singleContent, contentSubmitHandler) /*在这里传入防止一些奇怪问题*/ }} disabled={contentAvailability}>提交</Button>
+                    <Button type="primary" onClick={() => { preventEmpty(singleContent, contentSubmitHandler) /*在这里传入防止一些奇怪问题*/ }} disabled={contentAvailability}>{t("Input.submit")}</Button>
                 </CenterIt>
                 {/* 更多设置 */}
                 {!contentAvailability && <div className="moreConfig" ref={moreConfigAnime}>
-                    <strong className="moreConfig" onClick={()=>setShowMoreConfig(!showMoreConfig)}>更多设置</strong>
+                    <strong className="moreConfig" onClick={()=>setShowMoreConfig(!showMoreConfig)}>{t("Input.moreConfig")}</strong>
                     {showMoreConfig && <div style={{ margin: "1em" }}>
-                        <span className="configTitle">标题背景色：<ColorPicker defaultValue="#3366CC" onChange={(e) => { prop.setTitleColor(e.toHexString()) }} showText={(color) => <span>标题颜色：{color.toHexString()}</span>} disabled={contentAvailability} /></span>
+                        <span className="configTitle">{t("Input.titlebg")}<ColorPicker defaultValue="#3366CC" onChange={(e) => { prop.setTitleColor(e.toHexString()) }} showText={(color) => <span>{color.toHexString()}</span>} disabled={contentAvailability} /></span>
                     </div>}
                 </div>}</>}
             {/* 确认按钮 */}
-            {comfirmVisibility && <Center>
-                <Button type="primary" onClick={() => { onFinishHandler() }} block>完成</Button>
+            {count-prop.delItemCount > 1 && confirmVisibility && <Center>
+                <Button type="primary" onClick={() => { onFinishHandler() }} block>{t("Input.finish")}</Button>
             </Center>}
             {/* 进度仪表盘 */}
             <CenterIt><Progress type="circle" percent={percent} style={{ backgroundColor: "white", borderRadius: "80px" }} /></CenterIt>
