@@ -1,7 +1,9 @@
 # Create-infoboxes-in-Mediawiki-Remake
+[![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
+
 让创建原生 MediaWiki Infobox 更加简单（使用React重构）
 
-Create Infoboxes in a simple way. (Refactoring with React)
+Create Infoboxes (without any extensions) in a simple way. (Refactoring with React)
 
 # 展示地址 / Github Page
 
