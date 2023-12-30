@@ -4,6 +4,7 @@ import { ConfigProvider } from "antd"
 import App from './App.jsx'
 import { BrowserRouter,HashRouter } from 'react-router-dom';
 import './index.css'
+import "./components/i18n/i18n.jsx"
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

@@ -4,8 +4,11 @@ import './App.css'
 const { Content, Sider } = Layout;
 import InputArea from './components/Left/InputArea';
 import OutputArea from './components/Content/OutputArea';
-import { Routes, Route} from "react-router-dom"
+import { Routes, Route } from "react-router-dom"
+import { useTranslation, Trans } from 'react-i18next';
+
 function App() {
+
 
   return (
     <>
@@ -17,10 +20,12 @@ function App() {
 }
 
 function Index() {
+  const { t, i18n } = useTranslation();
   const [collapsed, setCollapsed] = useState(false);
-  const [title, setTitle] = useState('标题待输入')
+  const [title, setTitle] = useState()
   const [content, setContent] = useState([])
   const [contentRef, setContentRef] = useState([])
+  const [delItemCount,setDelItemCount] = useState(0)
   const [previewContent, setPreviewContent] = useState([])
   let [pureContent, setPureContent] = useState([])
   const [titleColor, setTitleColor] = useState('#3366CC')
@@ -34,14 +39,15 @@ function Index() {
 
   const deleteItem = (index) => {
     enableTableAnimations(false)
-    setPreviewContent(current=>current.filter(a =>
-      a.id !== index
-      ))
-    setPureContent(current=>current.filter(a =>
+    setPreviewContent(current => current.filter(a =>
       a.id !== index
     ))
+    setPureContent(current => current.filter(a =>
+      a.id !== index
+    ))
+    setDelItemCount(current=>current+1)
   }
-  function enableTableAnimations(bool){
+  function enableTableAnimations(bool) {
     outPutRef.current.enableTableAnimations(bool)
   }
 
@@ -50,6 +56,7 @@ function Index() {
       setWindowSize(getWindowSize());
     }
     window.addEventListener('resize', handleWindowResize);
+    localStorage.getItem("i18nextLng") ? i18n.changeLanguage(localStorage.getItem("i18nextLng")) : null;
     return () => {
       window.removeEventListener('resize', handleWindowResize);
     };
@@ -62,10 +69,11 @@ function Index() {
           console.log(broken);
         }}>
         <InputArea pureContent={pureContent} setTitle={setTitle}
-        setContent={setContent} setContentRef={setContentRef}
-        setShowCode={setShow} setPreviewContent={setPreviewContent}
-        setTitleColor={setTitleColor} setPureContent={setPureContent} 
-        enableTableAnimations={enableTableAnimations}/>
+          setContent={setContent} setContentRef={setContentRef}
+          setShowCode={setShow} setPreviewContent={setPreviewContent}
+          setTitleColor={setTitleColor} setPureContent={setPureContent}
+          enableTableAnimations={enableTableAnimations} t={t} i18n={i18n}
+          delItemCount={delItemCount} />
       </Sider>
       <Layout>
         <Content style={{ overflowY: "scroll", height: windowSize.innerHeight, flex: "none" }}>
@@ -73,7 +81,7 @@ function Index() {
             contentRef={contentRef} showCode={showCode}
             previewContent={previewContent} titleColor={titleColor}
             pureContent={pureContent} setPureContent={setPureContent} setPreviewContent={setPreviewContent}
-            deleteItem={deleteItem} ref={outPutRef} />
+            deleteItem={deleteItem} ref={outPutRef} t={t} i18n={i18n} />
         </Content>
       </Layout>
     </Layout>

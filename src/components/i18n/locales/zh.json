@@ -1,0 +1,40 @@
+{
+  "fillInfoBelow": "在下方填写相关信息",
+  "contentRequired": "该内容为必填项",
+  "title": "标题",
+  "Input": {
+    "PlzInput": "请输入信息栏的标题",
+    "titleTip": "模板页的页面标题，如“角色信息栏”",
+    "submit": "提交",
+    "contentNumberTitle": "第{{count}}条标签",
+    "contentNumberTitlePlaceHolder": "请输入第{{count}}条标签",
+    "titlebg": "标题背景色：",
+    "moreConfig": "更多设置",
+    "finish": "完成"
+  },
+  "Output": {
+    "Template": {
+      "title": "模板页",
+      "copy": "复制"
+    },
+    "Usage": {
+      "title": "使用方法",
+      "titleUndefined": "错误：title未定义"
+    },
+    "Preview": {
+      "title": "预览",
+      "contentShowHere": "用户可编辑的值",
+      "defaultTitle": "标题"
+    },
+    "List": {
+      "inputChangeTo": "请输入欲修改为的标签",
+      "inputChange": "修改标签",
+      "cancle": "取消",
+      "confirm": "确定",
+      "title": "标签列表",
+      "header": "标签",
+      "change": "修改",
+      "delete": "删除"
+    }
+  }
+}
