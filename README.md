@@ -92,3 +92,7 @@ npm run dev
 - [x] 多语言支持 / Multi-language support
 - [ ] 支持新版 Infobox / Support new version of Infobox
 - [ ] 支持更多参数 / Support more parameters
+
+# Bug
+
+- [ ] 修改颜色后，折叠再重新打开更多设置，颜色会重置
